@@ -17,5 +17,14 @@ for (let i = 0; i < array.length; i++) {
   const width = spacing - 5;
   const height = 200 * array[i];
   cols[i] = new Column(x, y, width, height);
-  cols[i].draw(ctx);
+}
+
+animate();
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < cols.length; i++) {
+    cols[i].draw(ctx);
+  }
+  requestAnimationFrame(animate);
 }

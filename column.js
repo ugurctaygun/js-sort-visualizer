@@ -4,9 +4,25 @@ class Column {
     this.y = y;
     this.width = width;
     this.height = height;
+    this.queue = [];
+  }
+
+  moveCol(loc, frameCount = 100) {
+    for (let i = 1; i <= frameCount; i++) {
+      const t = i / frameCount;
+      this.queue.push({
+        x: lerp(this.x, loc.x, t),
+        y: lerp(this.y, loc.y, t),
+      });
+    }
   }
 
   draw(ctx) {
+    if (this.queue.length > 0) {
+      const { x, y } = this.queue.shift();
+      this.x = x;
+      this.y = y;
+    }
     const left = this.x - this.width / 2;
     const top = this.y - this.height;
     const right = this.x + this.width / 2;
